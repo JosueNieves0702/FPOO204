@@ -8,7 +8,7 @@ public class ejercicio_3 {
        System.out.println("ingrese el numero de la tabla a imprimir:");
        num= sc.nextInt();
         System.out.println("tabla de multiplicar del numero "+num);
-        for (int i = 1; i <= num; i++) {
+        for (int i = 1; i <= 10; i++) {
             int t= num*i;
             System.out.println(num+" x "+i+" = "+t);
         }
