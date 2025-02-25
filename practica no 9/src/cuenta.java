@@ -1,12 +1,18 @@
 import javax.swing.*;
 
 public class cuenta {
-    public String numCuenta;
-    public String titular;
-    public int edad;
-    public double saldo;
+    private String numCuenta;
+    private String titular;
+    private int edad;
+    private double saldo;
 
-    
+    public cuenta(String numCuenta, String titular, int edad, double saldo) {
+        this.numCuenta = numCuenta;
+        this.titular = titular;
+        this.edad = edad;
+        this.saldo = saldo;
+    }
+
     public void consultarSaldo(String numCuentaConsulta) {
         if (this.numCuenta.equals(numCuentaConsulta)) {
             JOptionPane.showMessageDialog(null, "Saldo de la cuenta " + numCuentaConsulta + ": $" + saldo, "Consulta de saldo", JOptionPane.INFORMATION_MESSAGE);
@@ -55,5 +61,37 @@ public class cuenta {
         } else {
             JOptionPane.showMessageDialog(null, "Número de cuenta origen incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public String getNumCuenta() {
+        return numCuenta;
+    }
+
+    public void setNumCuenta(String numCuenta) {
+        this.numCuenta = numCuenta;
+    }
+
+    public String getTitular() {
+        return titular;
+    }
+
+    public void setTitular(String titular) {
+        this.titular = titular;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
     }
 }

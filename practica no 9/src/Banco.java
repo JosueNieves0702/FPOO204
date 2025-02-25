@@ -3,17 +3,8 @@ import javax.swing.*;
 public class Banco {
     public static void main(String[] args) {
         
-        cuenta cuenta1 = new cuenta();
-        cuenta1.numCuenta = "123456789";
-        cuenta1.titular = "Juan Pérez";
-        cuenta1.edad = 30;
-        cuenta1.saldo = 1000.0;
-
-        cuenta cuenta2 = new cuenta();
-        cuenta2.numCuenta = "987654321";
-        cuenta2.titular = "María López";
-        cuenta2.edad = 25;
-        cuenta2.saldo = 1500.0;
+        cuenta cuenta1 = new cuenta("123456789","Juan perez",18,1000);
+        cuenta cuenta2 = new cuenta("987654321","Maria Lopez",25,1500);
 
         
         boolean salir = false;
@@ -38,9 +29,9 @@ public class Banco {
                         
                         String numCuentaConsulta = JOptionPane.showInputDialog("Ingrese el número de cuenta para consultar el saldo:");
                         if (numCuentaConsulta != null) {
-                            if (numCuentaConsulta.equals(cuenta1.numCuenta)) {
+                            if (numCuentaConsulta.equals(cuenta1.getNumCuenta())) {
                                 cuenta1.consultarSaldo(numCuentaConsulta);
-                            } else if (numCuentaConsulta.equals(cuenta2.numCuenta)) {
+                            } else if (numCuentaConsulta.equals(cuenta2.getNumCuenta())) {
                                 cuenta2.consultarSaldo(numCuentaConsulta);
                             } else {
                                 JOptionPane.showMessageDialog(null, "Número de cuenta no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
@@ -55,9 +46,9 @@ public class Banco {
                             if (montoIngreso != null) {
                                 try {
                                     double montoIngresoDouble = Double.parseDouble(montoIngreso);
-                                    if (numCuentaAbono.equals(cuenta1.numCuenta)) {
+                                    if (numCuentaAbono.equals(cuenta1.getNumCuenta())) {
                                         cuenta1.ingresarEfectivo(numCuentaAbono, montoIngresoDouble);
-                                    } else if (numCuentaAbono.equals(cuenta2.numCuenta)) {
+                                    } else if (numCuentaAbono.equals(cuenta2.getNumCuenta())) {
                                         cuenta2.ingresarEfectivo(numCuentaAbono, montoIngresoDouble);
                                     } else {
                                         JOptionPane.showMessageDialog(null, "Número de cuenta no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
@@ -76,9 +67,9 @@ public class Banco {
                             if (montoRetiro != null) {
                                 try {
                                     double montoRetiroDouble = Double.parseDouble(montoRetiro);
-                                    if (numCuentaRetiro.equals(cuenta1.numCuenta)) {
+                                    if (numCuentaRetiro.equals(cuenta1.getNumCuenta())) {
                                         cuenta1.retirarEfectivo(numCuentaRetiro, montoRetiroDouble);
-                                    } else if (numCuentaRetiro.equals(cuenta2.numCuenta)) {
+                                    } else if (numCuentaRetiro.equals(cuenta2.getNumCuenta())) {
                                         cuenta2.retirarEfectivo(numCuentaRetiro, montoRetiroDouble);
                                     } else {
                                         JOptionPane.showMessageDialog(null, "Número de cuenta no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
@@ -99,9 +90,9 @@ public class Banco {
                                 if (montoDeposito != null) {
                                     try {
                                         double montoDepositoDouble = Double.parseDouble(montoDeposito);
-                                        if (numCuentaOrigen.equals(cuenta1.numCuenta) && numCuentaDestino.equals(cuenta2.numCuenta)) {
+                                        if (numCuentaOrigen.equals(cuenta1.getNumCuenta()) && numCuentaDestino.equals(cuenta2.getNumCuenta())) {
                                             cuenta1.depositarACuenta(numCuentaOrigen, numCuentaDestino, montoDepositoDouble, cuenta2);
-                                        } else if (numCuentaOrigen.equals(cuenta2.numCuenta) && numCuentaDestino.equals(cuenta1.numCuenta)) {
+                                        } else if (numCuentaOrigen.equals(cuenta2.getNumCuenta()) && numCuentaDestino.equals(cuenta1.getNumCuenta())) {
                                             cuenta2.depositarACuenta(numCuentaOrigen, numCuentaDestino, montoDepositoDouble, cuenta1);
                                         } else {
                                             JOptionPane.showMessageDialog(null, "Números de cuenta no válidos", "Error", JOptionPane.ERROR_MESSAGE);
