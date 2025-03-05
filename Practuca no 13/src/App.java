@@ -6,11 +6,11 @@ public class App {
     public static void main(String[] args) {
         List<vehiculo> vehiculos = new ArrayList<>();
         List<conductor> conductores = new ArrayList<>();
-        registro_envios envio = null;
+        List<registro_envios> envios = new ArrayList<>();
         entregas entrega = new entregas();
 
         while (true) {
-            String[] options = {"Crear Conductor", "Crear Vehículo", "Crear Envío", "Actualizar Estado de Entrega", "Ver Conductor", "Ver Vehículo", "Salir"};
+            String[] options = {"Crear Conductor", "Crear Vehículo", "Crear Envío", "Actualizar Estado de Entrega", "Ver Conductor", "Ver Vehículo", "Ver Envío", "Salir"};
             int opcion = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menú de Gestión",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
@@ -46,8 +46,11 @@ public class App {
                     JOptionPane.showMessageDialog(null, "Vehículo creado exitosamente.");
                     break;
                 case 2:
-                    envio = registro_envios.crearEnvio();
-                    JOptionPane.showMessageDialog(null, "Envío creado exitosamente.");
+                    registro_envios nuevoEnvio = registro_envios.crearEnvio();
+                    if (nuevoEnvio != null) {
+                        envios.add(nuevoEnvio);
+                        JOptionPane.showMessageDialog(null, "Envío creado exitosamente.");
+                    }
                     break;
                 case 3:
                     if (entrega == null) {
@@ -119,6 +122,33 @@ public class App {
                     }
                     break;
                 case 6:
+                    if (envios.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "No hay envíos creados.");
+                    } else {
+                        String[] opcionesEnvio = {"Ver Envío por Código", "Ver Todos los Envíos"};
+                        int opcionEnvio = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Ver Envío",
+                                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesEnvio, opcionesEnvio[0]);
+                        if (opcionEnvio == 0) {
+                            String codigoEnvio = JOptionPane.showInputDialog("Ingrese el código del envío:");
+                            registro_envios envioEncontrado = envios.stream()
+                                    .filter(e -> e.getCodigoEnvio().equals(codigoEnvio))
+                                    .findFirst()
+                                    .orElse(null);
+                            if (envioEncontrado == null) {
+                                JOptionPane.showMessageDialog(null, "Envío no encontrado.");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Envío:\nCódigo: " + envioEncontrado.getCodigoEnvio() + "\nDestino: " + envioEncontrado.getDestino() + "\nPeso: " + envioEncontrado.getPeso());
+                            }
+                        } else if (opcionEnvio == 1) {
+                            StringBuilder todosEnvios = new StringBuilder("Envíos:\n");
+                            for (registro_envios e : envios) {
+                                todosEnvios.append("Código: ").append(e.getCodigoEnvio()).append(", Destino: ").append(e.getDestino()).append(", Peso: ").append(e.getPeso()).append("\n");
+                            }
+                            JOptionPane.showMessageDialog(null, todosEnvios.toString());
+                        }
+                    }
+                    break;
+                case 7:
                     JOptionPane.showMessageDialog(null, "Saliendo del programa.");
                     System.exit(0);
                     break;
